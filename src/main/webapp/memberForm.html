@@ -1,18 +1,49 @@
 <!DOCTYPE html>
+<script type="text/javascript">
+
+
+
+	
+	function checkform() {
+	  
+		var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+		var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		if ( document.LoginForm.id.value == "") {
+			alert("아이디를 입력해주세요");
+			LoginForm.id.focus();
+		}else if (!regExp.test(document.LoginForm.id.value)){
+			alert("올바른 이메일 형식으로 입력해주세요");
+		}else if (document.LoginForm.pwd.value == ""){
+				alert("비밀번호를 입력해주세요");
+				LoginForm.pwd.focus();
+		}else if(!pwdCheck.test(document.LoginForm.pwd.value)){
+				alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
+				LoginForm.pwd.focus();
+		}else if (document.LoginForm.idDuplication.value != "idCheck"){
+				alert("아이디 중복체크를 진행해주세요")
+		}else{
+			document.LoginForm.action="member.jsp";
+		}
+	}
+		
+</script>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입창</title>
 </head>
 <body>
-<form method = "post" action = "member2.jsp">
+<form name = "LoginForm" method = "post" >
 	<h1 style = "text-align:center">회원가입창</h1>
 	<table align="center">
 	<tr>
 		<td width="200">
-			<p align="right">아이디
+			<p align="right">이메일아이디
 		</td>
-		<td width="400"><input type="text" name = "id"></td>
+		<td width="400"><input type="text" name = "id">
+		<button type = "button" onclick = "fn_checkId()" name="checkId" >아이디체크</button>
+		<input type="hidden" name = "idDuplication" value="idUncheck"/>
+		</td>
 	</tr>
 	<tr>
 		<td width="200">
@@ -39,8 +70,8 @@
 			<p>&nbsp;</p>
 		</td>
 		<td width = "400">
-			<input type = "submit" value = "가입하기">
-			<input type = "reset" value = "다시작성">
+			<input type = "submit" value = "가입하기" onclick = "checkform()" >
+			<input type = "reset" value = "다시작성" >
 		</td>
 	</tr>
 	</table>
